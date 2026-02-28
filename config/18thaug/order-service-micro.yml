@@ -24,11 +24,46 @@ eureka:
   instance:
     prefer-ip-address: true
 
+zipkin:
+    base-url: http://localhost:9411
+    enabled: true
+
+  sleuth:
+    sampler:
+      probability: 1
+    propagation-keys:
+      - b3
+      - X-B3-TraceId
+      - X-B3-SpanId
+      - X-B3-ParentSpanId
+      - X-B3-Sampled
+      - X-B3-Flags
+
+server:
+  port: 8082
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+
+feign:
+  hystrix:
+    enabled: true
+
 management:
   tracing:
     sampling:
-      probability: 1.0   # Enable tracing (100%)
+      probability: 1
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
-  zipkin:
-    tracing:
-      endpoint: http://localhost:9411/api/v2/spans
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %5p [${spring.application.name},%X{traceId},%X{spanId}] %logger{36} - %msg%n"
