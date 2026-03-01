@@ -27,7 +27,7 @@ eureka:
 management:
   tracing:
     sampling:
-      probability: 1.0   # 100% tracing (dev)
+      probability: 1.0   # 100% tracing
 
   zipkin:
     tracing:
@@ -36,7 +36,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info
+        include: "*"
 
 logging:
   pattern:
