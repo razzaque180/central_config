@@ -2,10 +2,14 @@ server:
   port: 8081
 
 spring:
+  application:
+    name: product-service-micro
+
   datasource:
-    url: jdbc:mysql://localhost:3306/product_db
+    url: jdbc:mysql://localhost:3306/product_db_micro
     username: root
-    password: root
+    password: system
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -15,3 +19,25 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0   # 100% tracing
+
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %5p [${spring.application.name},%X{traceId:-},%X{spanId:-}] %logger{36} - %msg%n"
