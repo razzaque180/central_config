@@ -18,8 +18,8 @@ spring:
             - Path=/api/aadhaar/**
           filters:
             - StripPrefix=2
-        - id: order-service
-          uri: lb://order-service
+        - id: order-service-micro
+          uri: lb://order-service-micro
           predicates:
             - Path=/api/orders/**
           filters:
