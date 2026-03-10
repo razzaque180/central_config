@@ -1,10 +1,12 @@
 spring:
   application:
     name: api-gateway
+
   data:
     redis:
       host: localhost
       port: 6379
+
   cloud:
     gateway:
       discovery:
@@ -12,12 +14,14 @@ spring:
           enabled: true
           lower-case-service-id: true
       routes:
-        - id: aadhaar-service
-          uri: lb://aadhaar-service
+
+        - id: product-service-micro
+          uri: lb://product-service-micro
           predicates:
-            - Path=/api/aadhaar/**
+            - Path=/api/products,/api/products/**
           filters:
-            - StripPrefix=2
+            - StripPrefix=1
+
         - id: order-service-micro
           uri: lb://order-service-micro
           predicates:
@@ -30,6 +34,7 @@ spring:
                 redis-rate-limiter.burstCapacity: 5
                 redis-rate-limiter.requestedTokens: 1
                 key-resolver: "#{@ipKeyResolver}"
+
 eureka:
   client:
     service-url:
