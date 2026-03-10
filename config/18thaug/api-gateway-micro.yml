@@ -1,10 +1,6 @@
 spring:
   application:
-<<<<<<< HEAD:config/18thaug/api-gateway-micro.yml
     name: api-gateway-micro
-=======
-    name: api-gateway
->>>>>>> 8d0401e43d5f4e02082049cd1563162f3d1a9f26:config/18thaug/api-gateway.yml
 
   data:
     redis:
